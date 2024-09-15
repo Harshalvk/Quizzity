@@ -10,7 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
+import UserAvatar from "./UserAvatar";
 
 type Props = {
   user: Pick<User, "name" | "image" | "email">;
@@ -20,13 +20,7 @@ const UserAccountNav = ({ user }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Image
-          src={user.image ? user.image : ""}
-          alt="User profile"
-          height={40}
-          width={40}
-          className="focus:outline-none"
-        />
+        <UserAvatar user={user} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-white" align="end">
         <div className="flex items-center justify-star gap-2 p-2">
