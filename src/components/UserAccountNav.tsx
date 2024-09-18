@@ -10,7 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { Button } from "./ui/button";
+import UserAvatar from "./UserAvatar";
 
 type Props = {
   user: Pick<User, "name" | "image" | "email">;
@@ -20,7 +20,7 @@ const UserAccountNav = ({ user }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button>hii</Button>
+        <UserAvatar user={user} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-white" align="end">
         <div className="flex items-center justify-star gap-2 p-2">
@@ -46,7 +46,6 @@ const UserAccountNav = ({ user }: Props) => {
         >
           Sign Out
         </DropdownMenuItem>
-        <p>hello</p>
       </DropdownMenuContent>
     </DropdownMenu>
   );
