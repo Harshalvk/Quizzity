@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          `${geistSans.variable} ${geistMono.variable} antialiased min-h-screen pt-10`
+          `${geistSans.variable} ${geistMono.variable} antialiased min-h-screen pt-16`
         )}
       >
         <Providers>
