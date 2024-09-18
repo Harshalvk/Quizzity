@@ -1,6 +1,6 @@
 import { User } from "next-auth";
 import React from "react";
-import { Avatar } from "./ui/avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 import Image from "next/image";
 
 type Props = {
@@ -21,7 +21,9 @@ const UserAvatar = ({ user }: Props) => {
           />
         </div>
       ) : (
-        <h1>fallback</h1>
+        <AvatarFallback>
+          <span className="sr-only">{user?.name}</span>
+        </AvatarFallback>
       )}
     </Avatar>
   );

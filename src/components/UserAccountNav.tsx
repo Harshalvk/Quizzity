@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import UserAvatar from "./UserAvatar";
+import { LogOut } from "lucide-react";
 
 type Props = {
   user: Pick<User, "name" | "image" | "email">;
@@ -43,8 +44,9 @@ const UserAccountNav = ({ user }: Props) => {
             e.preventDefault();
             signOut().catch(console.error);
           }}
+          className="text-red-800 cursor-pointer hover:text-red-700"
         >
-          Sign Out
+          Sign Out <LogOut height={16} width={16} className="ml-2" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
