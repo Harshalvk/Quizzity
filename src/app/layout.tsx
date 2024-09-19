@@ -30,12 +30,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          `${geistSans.variable} ${geistMono.variable} antialiased min-h-screen pt-16`
+          `${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`
         )}
       >
         <Providers>
           <Navbar />
-          {children}
+          <main className="pt-16">{children}</main>
         </Providers>
       </body>
     </html>
