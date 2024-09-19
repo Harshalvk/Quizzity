@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import SignInButton from "./SignInButton";
 import UserAccountNav from "./UserAccountNav";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -14,12 +15,15 @@ const Navbar = async () => {
             Quizzity
           </p>
         </Link>
-        <div className="flex items-center">
-          {session?.user ? (
-            <UserAccountNav user={session.user} />
-          ) : (
-            <SignInButton text="SignIn" />
-          )}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <div className="flex items-center">
+            {session?.user ? (
+              <UserAccountNav user={session.user} />
+            ) : (
+              <SignInButton text="SignIn" />
+            )}
+          </div>
         </div>
       </div>
     </div>
