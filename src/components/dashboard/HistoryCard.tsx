@@ -4,9 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { History } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-type Props = {};
 
-const HistoryCard = (props: Props) => {
+const HistoryCard = () => {
   const router = useRouter();
   return (
     <Card

@@ -7,9 +7,8 @@ import {
   CardTitle,
 } from "../ui/card";
 
-type Props = {};
 
-const HotTopicsCard = (props: Props) => {
+const HotTopicsCard = () => {
   return (
     <Card className="col-span-4">
       <CardHeader>

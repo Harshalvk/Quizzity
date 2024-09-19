@@ -6,13 +6,12 @@ import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
 import React from "react";
 
-type Props = {};
 
 export const metadata = {
   title: "Dashboard | Quizzity",
 };
 
-const Dashboard = async (props: Props) => {
+const Dashboard = async () => {
   const session = await getAuthSession();
   if (!session?.user) {
     redirect("/");
