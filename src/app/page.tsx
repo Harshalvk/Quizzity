@@ -13,7 +13,7 @@ export default async function Home() {
   const session = await getAuthSession();
   if (session?.user) {
     //means the user is logged in
-    redirect("/dashborad");
+    redirect("/dashboard");
   }
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
