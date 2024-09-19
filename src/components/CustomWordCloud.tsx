@@ -3,8 +3,6 @@ import { useTheme } from "next-themes";
 import React from "react";
 import D3WordCloud from "react-d3-cloud";
 
-type Props = {};
-
 const data = [
   {
     text: "Algorithm",
@@ -52,7 +50,7 @@ const fontSizeMapper = (word: { value: number }) => {
   return Math.log2(word.value) * 5 + 16;
 };
 
-const CustomWordCloud = (props: Props) => {
+const CustomWordCloud = () => {
   const theme = useTheme();
   return (
     <>
