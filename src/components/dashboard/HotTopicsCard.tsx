@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import CustomWordCloud from "../CustomWordCloud";
 
 
 const HotTopicsCard = () => {
@@ -17,7 +18,9 @@ const HotTopicsCard = () => {
           Click on a topic to start a quiz on it!
         </CardDescription>
       </CardHeader>
-      <CardContent className="pl-2">word cloud</CardContent>
+      <CardContent className="pl-2">
+        <CustomWordCloud/>
+      </CardContent>
     </Card>
   );
 };
