@@ -23,12 +23,12 @@ const UserAccountNav = ({ user }: Props) => {
       <DropdownMenuTrigger>
         <UserAvatar user={user} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white" align="end">
+      <DropdownMenuContent className="bg-white dark:bg-gray-900" align="end">
         <div className="flex items-center justify-star gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-zinc-700">
+              <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-zinc-400">
                 {user.email}
               </p>
             )}
@@ -44,7 +44,7 @@ const UserAccountNav = ({ user }: Props) => {
             e.preventDefault();
             signOut().catch(console.error);
           }}
-          className="text-red-800 cursor-pointer hover:text-red-700"
+          className="text-red-800 cursor-pointer dark:text-red-500"
         >
           Sign Out <LogOut height={16} width={16} className="ml-2" />
         </DropdownMenuItem>
