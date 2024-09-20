@@ -25,11 +25,9 @@ import { Button } from "./ui/button";
 import { BookOpen, CopyCheck } from "lucide-react";
 import { Separator } from "./ui/separator";
 
-type Props = {};
-
 type Input = z.infer<typeof quizCreationSchema>;
 
-const QuizCreation = (props: Props) => {
+const QuizCreation = () => {
   const form = useForm<Input>({
     resolver: zodResolver(quizCreationSchema),
     defaultValues: {
