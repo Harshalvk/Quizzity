@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider     = "postgres"
   url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
   relationMode = "prisma"
 }
 
@@ -58,7 +59,7 @@ model Game {
   userId      String
   timeStarted DateTime
   topic       String
-  timeEnded   DateTime
+  timeEnded   DateTime?
   gameType    GameType
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   questions   Question[]
