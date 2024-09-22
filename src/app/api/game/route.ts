@@ -6,7 +6,7 @@ import { ZodError } from "zod";
 import axios from "axios";
 
 // /api/game
-export const POST = async (req: Request, res: Response) => {
+export const POST = async (req: Request) => {
   try {
     const session = await getAuthSession();
     if (!session?.user) {
