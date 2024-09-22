@@ -46,7 +46,7 @@ export const POST = async (req: Request) => {
         option3: string;
       };
 
-      let manyData = data.questions.map((question: mcqQuestion) => {
+      const manyData = data.questions.map((question: mcqQuestion) => {
         let options = [
           question.answer,
           question.option1,
@@ -74,7 +74,7 @@ export const POST = async (req: Request) => {
         answer: string;
       };
 
-      let manyData = data.questions.map((question: openQuestion) => {
+      const manyData = data.questions.map((question: openQuestion) => {
         return {
           question: question.question,
           answer: question.answer,
