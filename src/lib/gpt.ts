@@ -50,7 +50,7 @@ export async function strict_output(
 
     // if input is in a list format, ask it to generate json in a list
     if (list_input) {
-      output_format_prompt += `\nGenerate a list of json, one json for each input element.`;
+      output_format_prompt += `\nGenerate a list of JSON objects, with one JSON object for each input element. Each object should contain the following structure: a key for the question and a key for the answer. Ensure that the JSON format is correct, with proper syntax and no trailing commas or missing quotation marks.`;
     }
 
     // Use OpenAI to get a response
