@@ -1,9 +1,14 @@
 "use client";
 import React from "react";
 import { Game, Question } from "@prisma/client";
-import { Timer } from "lucide-react";
+import { ChevronRight, Timer } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
+import MCQCounter from "./MCQCounter";
+import { useMutation } from "@tanstack/react-query";
+import { z } from "zod";
+import { checkAnswerSchema } from "@/schemas/form/quiz";
+import axios from "axios";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
@@ -12,6 +17,8 @@ type Props = {
 const MCQ = ({ game }: Props) => {
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [selectedChoice, setSelectedChocie] = React.useState<number>(0);
+  const [correctAnswers, setCorrectAnswers] = React.useState<number>(0);
+  const [wrongAnswers, setWrongAnswers] = React.useState<number>(0);
 
   const currentQuestion = React.useMemo(() => {
     return game.questions[questionIndex];
@@ -23,20 +30,46 @@ const MCQ = ({ game }: Props) => {
     return JSON.parse(currentQuestion.options as string);
   }, [currentQuestion]);
 
+  const { mutate: checkAnswer, isPending: isChecking } = useMutation({
+    mutationFn: async () => {
+      const payload: z.infer<typeof checkAnswerSchema> = {
+        questionId: currentQuestion.id,
+        userAnswer: options[selectedChoice],
+      };
+
+      const response = await axios.post(`/api/checkAnswer`, payload);
+      return response.data;
+    },
+  });
+
+  const handleSubmit = React.useCallback(() => {
+    checkAnswer(undefined, {
+      onSuccess: ({ isCorrect }) => {
+        if (isCorrect) {
+          setCorrectAnswers((prev) => prev + 1);
+        } else {
+          setWrongAnswers((prev) => prev + 1);
+        }
+      },
+    });
+  }, []);
+
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw]">
       <div className="flex flex-row justify-between">
-        <p>
-          <span className="dark:text-slate-400 mr-2">Topic</span>
-          <span className="px-2 py-1 text-white rounded-lg bg-slate-500">
-            {game.topic}
-          </span>
-        </p>
-        <div className="flex self-start mt-3 dark:text-slate-400">
-          <Timer className="mr-2" />
-          <span>00:00</span>
+        <div className="flex flex-col">
+          <p>
+            <span className="dark:text-slate-400 mr-2">Topic</span>
+            <span className="px-2 py-1 text-white rounded-lg bg-slate-500">
+              {game.topic}
+            </span>
+          </p>
+          <div className="flex self-start mt-3 dark:text-slate-400">
+            <Timer className="mr-2" />
+            <span>00:00</span>
+          </div>
         </div>
-        {/* <MCQCounter/> */}
+        <MCQCounter correctAnswers={3} wrongAnswers={2} />
       </div>
       <Card className="w-full mt-4">
         <CardHeader className="flex flex-row items-center">
@@ -68,6 +101,10 @@ const MCQ = ({ game }: Props) => {
             </div>
           </Button>
         ))}
+        <Button className="mt-2 group" variant={"outline"}>
+          Next{" "}
+          <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-all" />
+        </Button>
       </div>
     </div>
   );
