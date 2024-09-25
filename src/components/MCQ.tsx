@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { checkAnswerSchema } from "@/schemas/form/quiz";
 import axios from "axios";
+import { toast } from "sonner";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
@@ -46,13 +47,19 @@ const MCQ = ({ game }: Props) => {
     checkAnswer(undefined, {
       onSuccess: ({ isCorrect }) => {
         if (isCorrect) {
+          toast.success("Correct!", {
+            description: "Correct Answer",
+          });
           setCorrectAnswers((prev) => prev + 1);
         } else {
+          toast.error("Incorrect!", {
+            description: "Incorrect Answer",
+          });
           setWrongAnswers((prev) => prev + 1);
         }
       },
     });
-  }, []);
+  }, [checkAnswer, isChecking]);
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw]">
@@ -101,7 +108,14 @@ const MCQ = ({ game }: Props) => {
             </div>
           </Button>
         ))}
-        <Button className="mt-2 group" variant={"outline"}>
+        <Button
+          className="mt-2 group"
+          variant={"outline"}
+          disabled={isChecking}
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
           Next{" "}
           <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-all" />
         </Button>
