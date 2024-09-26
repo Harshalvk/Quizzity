@@ -14,11 +14,11 @@ export const formateTimeDelta = (seconds: number) => {
   if (hours > 0) {
     parts.push(`${hours}h`);
   }
-  if (sec > 0) {
-    parts.push(`${sec}s`);
-  }
   if (minutes > 0) {
     parts.push(`${minutes}m`);
+  }
+  if (sec > 0) {
+    parts.push(`${sec}s`);
   }
 
   return parts.join(" ");
