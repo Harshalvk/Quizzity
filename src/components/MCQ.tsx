@@ -73,7 +73,7 @@ const MCQ = ({ game }: Props) => {
         setSelectedChocie(2);
       } else if (event.key === "4") {
         setSelectedChocie(3);
-      } else if (event.key === "enter") {
+      } else if (event.key === "Enter") {
         handleNext();
       }
     };
