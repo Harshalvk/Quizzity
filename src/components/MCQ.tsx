@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Game, Question } from "@prisma/client";
-import { ChevronRight, Timer } from "lucide-react";
+import { ChevronRight, Loader2, Timer } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import MCQCounter from "./MCQCounter";
@@ -43,7 +43,7 @@ const MCQ = ({ game }: Props) => {
     },
   });
 
-  const handleSubmit = React.useCallback(() => {
+  const handleNext = React.useCallback(() => {
     checkAnswer(undefined, {
       onSuccess: ({ isCorrect }) => {
         if (isCorrect) {
@@ -57,9 +57,33 @@ const MCQ = ({ game }: Props) => {
           });
           setWrongAnswers((prev) => prev + 1);
         }
+        setQuestionIndex((questionIndex) => questionIndex + 1)
       },
     });
   }, [checkAnswer, isChecking]);
+
+  //key press events function
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "1") {
+        setSelectedChocie(0);
+      } else if (event.key === "2") {
+        setSelectedChocie(1);
+      } else if (event.key === "3") {
+        setSelectedChocie(2);
+      } else if (event.key === "4") {
+        setSelectedChocie(3);
+      } else if (event.key === "enter") {
+        handleNext();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleNext]);
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw]">
@@ -76,7 +100,10 @@ const MCQ = ({ game }: Props) => {
             <span>00:00</span>
           </div>
         </div>
-        <MCQCounter correctAnswers={3} wrongAnswers={2} />
+        <MCQCounter
+          correctAnswers={correctAnswers}
+          wrongAnswers={wrongAnswers}
+        />
       </div>
       <Card className="w-full mt-4">
         <CardHeader className="flex flex-row items-center">
@@ -113,9 +140,10 @@ const MCQ = ({ game }: Props) => {
           variant={"outline"}
           disabled={isChecking}
           onClick={() => {
-            handleSubmit();
+            handleNext();
           }}
         >
+          {isChecking && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           Next{" "}
           <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-all" />
         </Button>
