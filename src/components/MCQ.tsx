@@ -49,6 +49,8 @@ const MCQ = ({ game }: Props) => {
   });
 
   const handleNext = React.useCallback(() => {
+    if (isChecking) return;
+    
     checkAnswer(undefined, {
       onSuccess: ({ isCorrect }) => {
         if (isCorrect) {
