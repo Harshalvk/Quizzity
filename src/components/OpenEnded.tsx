@@ -32,9 +32,9 @@ const OpenEnded = ({ game }: Props) => {
     mutationFn: async () => {
       let filledAnswer = blankAnswer;
       document.querySelectorAll("user-blank-input").forEach((input) => {
-        //@ts-ignore
+        //@ts-expect-error value will have error
         filledAnswer = filledAnswer.replace("_____", input.value);
-        //@ts-ignore
+        //@ts-expect-error value will have error
         input.value = "";
       });
       const payload: z.infer<typeof checkAnswerSchema> = {
