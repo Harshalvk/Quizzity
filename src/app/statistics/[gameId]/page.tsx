@@ -1,4 +1,5 @@
 import AccuracyCard from "@/components/statistics/AccuracyCard";
+import QuestionList from "@/components/statistics/QuestionList";
 import ResultCard from "@/components/statistics/ResultCard";
 import TimeTakenCard from "@/components/statistics/TimeTakenCard";
 import { buttonVariants } from "@/components/ui/button";
@@ -33,7 +34,7 @@ const StatisticPage = async ({ params: { gameId } }: Props) => {
 
   let accuracy: number = 0;
   if (game.gameType === "mcq") {
-    let totalCorrect = game.questions.reduce((acc, question) => {
+    const totalCorrect = game.questions.reduce((acc, question) => {
       if (question.isCorrect) {
         return acc + 1;
       }
@@ -41,7 +42,7 @@ const StatisticPage = async ({ params: { gameId } }: Props) => {
     }, 0);
     accuracy = (totalCorrect / game.questions.length) * 100;
   } else if (game.gameType === "open_ended") {
-    let totalPercentage = game.questions.reduce((acc, question) => {
+    const totalPercentage = game.questions.reduce((acc, question) => {
       return acc + (question.percentageCorrect || 0);
     }, 0);
     accuracy = (totalPercentage / game.questions.length) * 100;
@@ -64,9 +65,12 @@ const StatisticPage = async ({ params: { gameId } }: Props) => {
         <div className="grid gap-4 mt-4 md:grid-cols-7">
           <ResultCard accuracy={accuracy} />
           <AccuracyCard accuracy={accuracy} />
-          <TimeTakenCard timeEnded={new Date()} timeStarted={game.timeStarted} />
+          <TimeTakenCard
+            timeEnded={new Date()}
+            timeStarted={game.timeStarted}
+          />
         </div>
-        {/* <QuestionList/> */}
+        <QuestionList questions={game.questions} />
       </div>
     </>
   );
