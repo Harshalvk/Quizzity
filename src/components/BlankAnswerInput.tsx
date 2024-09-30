@@ -23,7 +23,7 @@ const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
 
   const answerWithBlanks = React.useMemo(() => {
     const answerWithBlanks = keywords.reduce((acc, keywords) => {
-      return acc.replace(keywords, BLANKS);
+      return acc.replaceAll(keywords, BLANKS);
     }, answer);
     setBlankAnswer(answerWithBlanks)
     return answerWithBlanks;
@@ -35,7 +35,7 @@ const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
         {answerWithBlanks.split(BLANKS).map((part, index) => (
           <>
             {part}
-            {index === answerWithBlanks.split(BLANKS).length - 1 ? null : (
+            {index === answerWithBlanks.split(BLANKS).length - 1 ? "" : (
               <input
                 id="user-blank-input"
                 className="text-center border-b-2 border-black dark:border-white w-28 focus:border-2 focus:border-b-4 focus:outline-none"
