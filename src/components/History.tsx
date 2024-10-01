@@ -22,7 +22,7 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
   return (
     <div className="space-y-8">
       {game.map((game) => (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between" key={game.id}>
           <div className="flex items-center">
             {game.gameType === "mcq" ? (
               <CopyCheck className="mr-3" />
