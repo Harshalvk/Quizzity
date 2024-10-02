@@ -7,14 +7,20 @@ export const metadata = {
   title: "Quiz | Quizzity",
 };
 
-const QuizPage = async () => {
+type Props = {
+  searchParams: {
+    topic?: string;
+  };
+};
+
+const QuizPage = async ({ searchParams }: Props) => {
   const session = await getAuthSession();
   if (!session?.user) {
     redirect("/");
   }
   return (
     <>
-      <QuizCreation />
+      <QuizCreation topicParam={searchParams.topic ?? ""} />
     </>
   );
 };

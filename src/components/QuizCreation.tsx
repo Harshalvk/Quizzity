@@ -31,7 +31,11 @@ import LoadingQuestions from "./LoadingQuestions";
 
 type Input = z.infer<typeof quizCreationSchema>;
 
-const QuizCreation = () => {
+type Props = {
+  topicParam: string;
+};
+
+const QuizCreation = ({ topicParam }: Props) => {
   const router = useRouter();
   const [showLoader, setShowLoader] = React.useState<boolean>(false);
   const [finished, setFinished] = React.useState<boolean>(false);
@@ -51,7 +55,7 @@ const QuizCreation = () => {
     resolver: zodResolver(quizCreationSchema),
     defaultValues: {
       amount: 3,
-      topic: "",
+      topic: topicParam,
       type: "open_ended",
     },
   });
