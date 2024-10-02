@@ -7,9 +7,17 @@ import {
   CardTitle,
 } from "../ui/card";
 import CustomWordCloud from "../CustomWordCloud";
+import { prisma } from "@/lib/db";
 
-
-const HotTopicsCard = () => {
+const HotTopicsCard = async () => {
+  const topcis = await prisma.topicsCount.findMany({});
+  const formattedTopics = topcis.map((topic) => {
+    return {
+      text: topic.topic,
+      value: topic.count
+    }
+  });
+  
   return (
     <Card className="col-span-4">
       <CardHeader>
@@ -19,7 +27,7 @@ const HotTopicsCard = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="pl-2">
-        <CustomWordCloud/>
+        <CustomWordCloud formattedTopics={formattedTopics}/>
       </CardContent>
     </Card>
   );
